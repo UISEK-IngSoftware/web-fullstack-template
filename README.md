@@ -21,16 +21,39 @@ Pero el verdadero objetivo no es la PokeDex, sino **entender cómo evoluciona el
 
 ---
 
+## 📚 Índice y documentación
+
+**Guías por módulo** (cada una tiene sus propios comandos, laboratorios y problemas frecuentes):
+
+| Módulo | Guía | Qué encontrarás |
+|---|---|---|
+| ⚙️ Backend (Django) | [backend/README.md](./backend/README.md) | Ruta de aprendizaje (MVT/MVC → ORM → DRF → OAuth 2.0 y JWT), comandos de Django con Docker, base de datos y pgAdmin. |
+| 🎨 Frontend (React + Vite) | [frontend/README.md](./frontend/README.md) | Laboratorios 9–11 (componentes, Axios, autorización), comandos de npm con Docker. |
+
+**Contenido de esta guía general**
+
+1. [Inicio rápido con Docker](#-inicio-rápido-solo-necesitas-docker)
+2. [Entendiendo el modelo de datos](#-entendiendo-el-modelo-de-datos-el-porqué-de-las-relaciones)
+3. [Estructura del modelo de datos](#️-estructura-del-modelo-de-datos-campos-técnicos)
+4. [Mapa de relaciones visual](#-mapa-de-relaciones-visual)
+5. [Organización del repositorio](#-organización-del-repositorio)
+
+> 💡 **Nota de aprendizaje:** Este README explica el **qué y el porqué** (conceptos y arquitectura). Los README de backend y frontend explican el **cómo** (comandos y laboratorios).
+
+---
+
 ## 🐳 Inicio rápido (solo necesitas Docker)
 
+### 1. Instalación y arranque
+
 1. Instala [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Windows / macOS) o Docker Engine + Compose (Linux).
-2. En la raíz del repositorio ejecuta:
+2. En la raíz del repositorio ejecuta `docker compose up --build`:
 
 ```bash
 docker compose up --build
 ```
 
-3. Abre los servicios:
+### 2. Servicios disponibles
 
 | Servicio | URL | Credenciales |
 |---|---|---|
@@ -38,13 +61,15 @@ docker compose up --build
 | Backend (Django) | <http://localhost:8000> | — |
 | pgAdmin | <http://localhost:5050> | `admin@pokedex.com` / `admin` |
 
-Para conectar pgAdmin a la base de datos: *Add New Server* → Host `db`, Puerto `5432`, Base de datos `pokedex`, Usuario `pokedex`, Contraseña `pokedex`.
+**Conectar pgAdmin a la base de datos:** *Add New Server* → Host `db`, Puerto `5432`, Base de datos `pokedex`, Usuario `pokedex`, Contraseña `pokedex`.
+
+### 3. Red de contenedores
 
 Todos los contenedores comparten la red **`pokedex_framework`**, por eso se encuentran entre sí por nombre (`db`, `backend`, `frontend`, `pgadmin`).
 
 > 💡 **Nota de aprendizaje:** Dentro de la red de Docker, el backend llega a la base de datos usando el host `db` y **no** `localhost`. Dentro de un contenedor, `localhost` es el propio contenedor.
 
-Comandos que usarás a diario:
+### 4. Comandos de uso diario
 
 ```bash
 docker compose up -d              # Levantar todo en segundo plano
@@ -53,7 +78,7 @@ docker compose down               # Apagar (conserva los datos)
 docker compose down -v            # Apagar y BORRAR la base de datos
 ```
 
-Los comandos específicos de cada parte están en [backend/README.md](./backend/README.md) y [frontend/README.md](./frontend/README.md).
+Los comandos específicos de cada parte están en [backend/README.md](./backend/README.md#ejecutar-comandos-de-django) y [frontend/README.md](./frontend/README.md#comandos-útiles-con-docker-compose).
 
 ---
 
@@ -243,5 +268,7 @@ pokedex/
 ```
 
 > 💡 **Nota de aprendizaje:** Un **monorrepo** guarda backend y frontend en un mismo repositorio. Es cómodo para aprender: un solo `docker compose up` levanta todo el ecosistema.
+
+➡️ **Siguiente paso:** continúa con la [guía del backend](./backend/README.md) y luego con la [guía del frontend](./frontend/README.md).
 
 ¡Mucho éxito y a disfrutar el viaje! 🚀

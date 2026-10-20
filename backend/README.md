@@ -2,16 +2,30 @@
 
 Este laboratorio permite aprender y reforzar Python, modelos de Django y bases de datos relacionales (PostgreSQL) construyendo la API de una PokeDex.
 
+## Ruta de aprendizaje
+
+Los laboratorios avanzan de lo tradicional a lo moderno:
+
+1. **Esquema tradicional MVT / MVC:** se parte de **rutas** (`urls.py`), **templates** (HTML renderizado en el servidor) y **views**. Django implementa el patrón **MVT** (Model–View–Template), su variante del clásico **MVC**.
+2. **Operaciones en base de datos:** modelos, migraciones y consultas con el ORM (crear, leer, actualizar y eliminar).
+3. **Django REST Framework (DRF):** serializadores, vistas y endpoints que entregan JSON, consumido luego por el frontend en React.
+4. **Seguridad con OAuth 2.0 y JWT:** autenticación y autorización de la API para cerrar el ciclo.
+
+> 💡 **Nota de aprendizaje:** Cada etapa se apoya en la anterior. Entender las rutas, vistas y el ORM hace mucho más sencillo comprender cómo DRF y la autenticación por tokens funcionan "por debajo".
+
 ## Objetivos
 - Reconocer y aplicar conceptos de POO: clases, objetos, atributos y métodos.
+- Comprender el patrón MVT/MVC y el flujo petición → ruta → vista → template/respuesta.
 - Modelar datos relacionales (`ForeignKey` y `ManyToManyField`) con el ORM de Django.
-- Exponer los datos mediante una API REST.
+- Exponer los datos mediante una API REST y protegerla con OAuth 2.0 y JWT.
 
 ## Tareas a realizar
-1. Generación de modelos `Type`, `Pokemon` y `Trainer`.
-2. Generación de migraciones.
-3. Registro de modelos en el panel de administración.
-4. Serializadores y endpoints REST.
+1. Rutas, views y templates (MVT/MVC): lista y detalle de Pokémon y entrenadores.
+2. Generación de modelos `Type`, `Pokemon` y `Trainer`.
+3. Generación de migraciones y operaciones en base de datos con el ORM.
+4. Registro de modelos en el panel de administración.
+5. Serializadores y endpoints REST con Django REST Framework.
+6. Autenticación con OAuth 2.0 y JWT.
 
 ## Entorno con Docker (sin instalar nada en tu equipo)
 

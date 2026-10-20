@@ -1,0 +1,72 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: pokedex
+      POSTGRES_USER: pokedex
+      POSTGRES_PASSWORD: pokedex
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pokedex -d pokedex"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - pokedex_framework
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@pokedex.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - pokedex_framework
+
+  backend:
+    build: ./backend
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    environment:
+      POSTGRES_DB: pokedex
+      POSTGRES_USER: pokedex
+      POSTGRES_PASSWORD: pokedex
+      POSTGRES_HOST: db
+      POSTGRES_PORT: "5432"
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - pokedex_framework
+
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - pokedex_framework
+
+volumes:
+  pgdata:
+  pgadmin_data:
+
+networks:
+  pokedex_framework:
+    name: pokedex_framework
